@@ -20,6 +20,7 @@ RUN \
   apt-get install -y net-tools && \
   apt-get install -y npm && \
   apt-get install -y autojump && \
+  apt-get install -y most && \
   apt-get install -y iputils-ping
 
 # Install oh-my-zsh and vim
