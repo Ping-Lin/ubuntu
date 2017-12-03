@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/Users/Ping/workspace/samba-4.5.3/source4/torture'
+let g:netrw_dirhist_2='/Users/Ping/workspace/a_and_q'
+let g:netrw_dirhist_3='/private/var/log/asl'
+let g:netrw_dirhist_4='/private/var/log/asl/Logs'

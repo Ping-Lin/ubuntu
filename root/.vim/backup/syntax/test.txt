@@ -1,0 +1,2 @@
+# vim:ft=syntest
+'sad vim fasdfds'sadfas 'sadg 'asg df'gad'fga'dfg'ad'f'g'adf'g'a'

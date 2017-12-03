@@ -1,0 +1,63 @@
+# vim:ft=syn
+[login]
+${http}://${router_ip}:${router_port}/
+${syno_custom_salt_data}
+${syno_custom_encode_pass}
+${http}://${router_ip}:${router_port}/post_login.cgi?data=${syno_custom_encode_pass}
+${http}://${router_ip}:${router_port}/post_login.cgi?data=${syno_cutom_encode_pass}
+# get number
+${syno_custom_single_num}
+${syno_custom_range_num}
+#end
+
+[logout]
+${http}://${router_ip}:${router_port}/
+${syno_custom_clean_temp}
+#end
+
+[PF add port]
+# 1. clean in the first time
+syno_if_greater_than(3, ${rule_id}, 1)
+${syno_custom_temp_port}
+# 2. for each rule, dump params to temp file
+${syno_custom_append_params_port}
+# 3. do applying in the last time
+syno_if_greater_than(${rule_id}, ${syno_custom_single_num}, 4)
+${syno_custom_table_port}
+${syno_custom_encode_port}
+${http}://${router_ip}:${router_port}/apply_vserver?@${syno_custom_encode_port}
+${http}://${router_ip}:${router_port}/apply_vserver?aaa=bbb&ccc=ddd&eee=fff${proto}
+syno_sleep(5)
+#end
+
+[PF add range]
+# 1. clean in the first time
+syno_if_greater_than(3, ${rule_id}, 1)
+${syno_custom_temp_range}
+# 2. for each rule, dump params to temp file
+${syno_custom_append_params_range}
+# 3. do applying in the last time
+syno_if_greater_than(${rule_id}, ${syno_custom_range_num}, 4)
+${syno_custom_table_range}
+${syno_custom_encode_range}
+${http}://${router_ip}:${router_port}/apply_gaming?@${syno_custom_encode_range}
+syno_sleep(5)
+#end
+
+[PF delete port]
+syno_if_greater_than(1, ${syno_custom_single_num}, 5)
+${syno_custom_temp_port}
+${syno_custom_table_port}
+${syno_custom_encode_port}
+${http}://${router_ip}:${router_port}/apply_vserver?@${syno_custom_encode_port}
+syno_sleep(5)
+#end
+
+[PF delete range]
+syno_if_greater_than(1, ${syno_custom_range_num}, 5)
+${syno_custom_temp_range}
+${syno_custom_table_range}
+${syno_custom_encode_range}
+${http}://${router_ip}:${router_port}/apply_gaming?@${syno_custom_encode_range}
+syno_sleep(5)
+#end

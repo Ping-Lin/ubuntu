@@ -1,39 +1,13 @@
 [user]
-  name = 
-  email = 
-
+    name = XXXX
+    email = XXXX
 [alias]
-  a = add
-  b = branch
-  c = commit
-  co = checkout
-  d = diff
-  e = add --edit
-  f = fetch
-  g = grep
-  h = help
-  i = init
-  l = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-  ll = log --stat
-  m = merge
-  r = remote
-  s = status --branch --short
-  t = tag
-  w = whatchanged
-
-[core]
-  excludesfile = ~/.gitignore
-  editor = vim
-
+	co = checkout
+	ci = commit
+	st = status
+	br = branch
+	cp = cherry-pick
 [color]
-  ui = always
-  status = auto
-  branch = auto
-  interactive = auto
-  diff = auto
-
-[merge]
-  tool = vimdiff
-
-[push]
-  default = upstream
+    ui = auto
+[core]
+	editor = /usr/bin/vim

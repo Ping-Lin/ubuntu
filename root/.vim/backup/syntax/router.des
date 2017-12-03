@@ -1,0 +1,54 @@
+# vim:ft=des
+[global]
+default user=admin
+default pass=
+cgi wait time=0
+post login=no
+post logout=no
+syntax version=008
+${syno_custom_salt_data}=syno_webpage_get(${http}://${router_ip}:${router_port}/pre_login.js)
+${syno_custom_encode_pass}=syno_exec_and_get_output(encode.pl, login, ${syno_custom_salt_data}, ${user}:${pass})
+${syno_custom_single_num}=syno_exec_and_get_output(exec.sh, job, "PF add port")
+${syno_custom_range_num}=syno_exec_and_get_output(exec.sh, job, "PF add range")
+${syno_custom_clean_temp}=syno_exec_and_get_return(exec.sh, clean, ${syno_custom_temp_port}, ${syno_custom_temp_range}, ${syno_custom_encode_port}, ${syno_custom_encode_range})
+${syno_macro_sasdas}=syno_webpage_get()
+#end
+[PF port page]
+change router port=yes
+submit post=yes
+max rule=32
+token delimiter=
+range delimiter=
+support port=single
+support range=single
+support mix port and range=no
+tcp=6
+udp=17
+tcp_udp=0
+rule id start=2
+add type=one
+delete type=all
+${syno_custom_temp_port}=syno_exec_and_get_output(exec.sh, temp, /tmp/pfTemp.single)
+${syno_custom_append_params_port}=syno_exec_and_get_output(exec.sh, append, 'c=${comment}&ip=${src_ip}&sp=${sport}&p=${proto}&rp=${rport}', ${syno_custom_temp_port})
+${syno_custom_table_port}=syno_webpage_get(${http}://${router_ip}:${router_port}/vserver)
+${syno_custom_encode_port}=syno_exec_and_get_output(encode.pl, vs, ${syno_custom_temp_port}, ${syno_custom_table_port})
+#end
+[PF range page]
+change router port=no
+submit post=yes
+max rule=16
+token delimiter=
+range delimiter=-
+support port=single
+support range=single
+support mix port and range=no
+tcp=6
+udp=17
+tcp_udp=0
+rule id start=2
+add type=one
+delete type=all
+${syno_custom_temp_range}=syno_exec_and_get_output(exec.sh, temp, /tmp/pfTemp.range)
+${syno_custom_append_params_range}=syno_exec_and_get_output(exec.sh, append, 'c=${comment}&ip=${src_ip}&sp=${sport}&p=${proto}&rp=${rport}', ${syno_custom_temp_range})
+${syno_custom_table_range}=syno_webpage_get(${http}://${router_ip}:${router_port}/gaming)
+${syno_custom_encode_range}=syno_exec_and_get_output(encode.pl, pf, ${syno_custom_temp_range}, ${syno_custom_table_range})
